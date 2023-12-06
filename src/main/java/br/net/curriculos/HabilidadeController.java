@@ -2,6 +2,8 @@ package br.net.curriculos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -15,6 +17,20 @@ public class HabilidadeController {
     @GetMapping
     public List<Habilidade> getAllHabilidades() {
         return habilidadeRepository.findAll();
+    }
+    
+    @CrossOrigin(origins= "*")
+    @GetMapping("/{idusuario}")
+    public List<Habilidade> getHabilidadeByIdUsuario(@PathVariable Integer idusuario) {
+        return habilidadeRepository.findByidusuario(idusuario);
+    }
+    
+    @CrossOrigin(origins = "*")
+    @GetMapping("/geral")
+    public List<String> getUniqueHabilidades() {
+    	List<String> uniqueHabilidades = habilidadeRepository.findUniqueHabilidade();
+        Collections.sort(uniqueHabilidades);
+        return uniqueHabilidades;
     }
 
     @CrossOrigin(origins= "*")

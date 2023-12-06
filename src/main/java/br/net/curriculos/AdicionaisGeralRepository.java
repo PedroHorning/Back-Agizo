@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ExperienciaRepository extends JpaRepository<Experiencia, Integer>{
-	@Query("SELECT c FROM Experiencia c WHERE c.idusuario = :idusuario")
-    List<Experiencia> findByidusuario(Integer idusuario);
+public interface AdicionaisGeralRepository extends JpaRepository<AdicionaisGeral, Integer> {
+	
+	@Query("SELECT c FROM AdicionaisGeral c WHERE c.id = :id")
+    List<AdicionaisGeral> findByid(Integer id);		 
 }

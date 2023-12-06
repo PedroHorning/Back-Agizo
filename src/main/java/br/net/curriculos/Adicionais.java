@@ -6,25 +6,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "habilidade")
-public class Habilidade {
+@Table(name = "adicionais")
+public class Adicionais {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-	private Integer id;
+    private Integer id;
 
-    @Column(name = "nivel")
-    private String nivel;
-    
+    @Column(name = "titulo")
+    private String titulo;
+
     @Column(name = "descricao")
     private String descricao;
-    
+
+    @Column(name = "data")
+    private LocalDate data;
+
     @Column(name = "idusuario")
     private Integer idusuario;
-    
+
     public Integer getId() {
         return id;
     }
@@ -33,14 +37,14 @@ public class Habilidade {
         this.id = id;
     }
 
-    public String getNivel() {
-        return nivel;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
-    
+
     public String getDescricao() {
         return descricao;
     }
@@ -48,7 +52,15 @@ public class Habilidade {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
     public Integer getIdusuario() {
         return idusuario;
     }

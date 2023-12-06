@@ -1,5 +1,8 @@
 package br.net.curriculos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,17 +22,19 @@ public class Formacao {
     @Column(name = "curso")
     private String curso;
 
-    @Column(name = "data_inicio")
-    private String data_inicio;
+    @Column(name = "datainicio")
+    @JsonProperty("datainicio")
+    private LocalDate datainicio;
 
-    @Column(name = "data_fim")
-    private String data_fim;
-    
-    @Column(name = "descricao")
-    private String descricao;
+    @Column(name = "datafim")
+    @JsonProperty("datafim")
+    private LocalDate datafim;
     
     @Column(name = "local")
     private String local;
+    
+    @Column(name = "idusuario")
+    private Integer idusuario;
     
     public Integer getId() {
         return id;
@@ -47,28 +52,20 @@ public class Formacao {
         this.curso = curso;
     }
 
-    public String getData_inicio() {
-        return data_inicio;
+    public LocalDate getDatainicio() {
+        return datainicio;
     }
 
-    public void setData_inicio(String data_inicio) {
-        this.data_inicio = data_inicio;
+    public void setDatainicio(LocalDate datainicio) {
+        this.datainicio = datainicio;
     }
     
-    public String getData_fim() {
-        return data_fim;
+    public LocalDate getDatafim() {
+        return datafim;
     }
 
-    public void setData_fim(String data_fim) {
-        this.data_fim = data_fim;
-    }
-    
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDatafim(LocalDate datafim) {
+        this.datafim = datafim;
     }
     
     public String getLocal() {
@@ -77,5 +74,13 @@ public class Formacao {
 
     public void setLocal(String local) {
         this.local = local;
+    }
+    
+    public Integer getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(Integer idusuario) {
+        this.idusuario = idusuario;
     }
 }

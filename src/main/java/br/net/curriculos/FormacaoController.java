@@ -2,6 +2,8 @@ package br.net.curriculos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -18,6 +20,20 @@ public class FormacaoController {
     }
 
     @CrossOrigin(origins= "*")
+    @GetMapping("/{idusuario}")
+    public List<Formacao> getFormacaoByIdUsuario(@PathVariable Integer idusuario) {
+        return formacaoRepository.findByidusuario(idusuario);
+    }
+    
+    @CrossOrigin(origins = "*")
+    @GetMapping("/geral")
+    public List<String> getUniqueFormacao() {
+    	List<String> uniqueFormacao = formacaoRepository.findUniqueFormacao();
+        Collections.sort(uniqueFormacao);
+        return uniqueFormacao;
+    }
+
+    @CrossOrigin(origins= "*")
     @PostMapping
     public Formacao createFormacao(@RequestBody Formacao formacao) { 
     	Formacao savedFormacao = formacaoRepository.save(formacao);
@@ -31,10 +47,10 @@ public class FormacaoController {
     	Formacao formacao = formacaoRepository.findById(id).orElse(null);
         if (formacao != null) {
         	formacao.setCurso(formacaoData.getCurso());
-        	formacao.setData_inicio(formacaoData.getData_inicio());
-        	formacao.setData_fim(formacaoData.getData_fim());
-        	formacao.setDescricao(formacaoData.getDescricao());
+        	formacao.setDatainicio(formacaoData.getDatainicio());
+        	formacao.setDatafim(formacaoData.getDatafim());
         	formacao.setLocal(formacaoData.getLocal());
+        	formacao.setIdusuario(formacaoData.getIdusuario());
 
             return formacaoRepository.save(formacao);
         }

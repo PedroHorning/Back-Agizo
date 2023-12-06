@@ -11,20 +11,32 @@ import jakarta.persistence.Table;
 @Table(name = "cabecalho")
 public class Cabecalho {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-	private Integer id;
+    private Integer id;
 
     @Column(name = "nome")
     private String name;
 
-    @Column(name = "idade")
-    private Integer idade;
+    @Column(name = "telefone")
+    private String telefone;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "cidade")
     private String cidade;
-    
+
+    @Column(name = "estado")
+    private String estado;
+
+    @Column(name = "cargo")
+    private String cargo;
+
+    @Column(name = "idusuario")
+    private Integer idusuario;
+
     public Integer getId() {
         return id;
     }
@@ -37,8 +49,24 @@ public class Cabecalho {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nome) {
+        this.name = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCidade() {
@@ -49,11 +77,27 @@ public class Cabecalho {
         this.cidade = cidade;
     }
 
-    public Integer getIdade() {
-        return idade;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public Integer getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(Integer idusuario) {
+        this.idusuario = idusuario;
     }
 }

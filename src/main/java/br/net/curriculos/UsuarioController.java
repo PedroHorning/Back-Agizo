@@ -9,7 +9,7 @@ import java.security.SecureRandom;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/users/")
 public class UsuarioController {
 
     @Autowired
@@ -22,67 +22,31 @@ public class UsuarioController {
     }
 
     @CrossOrigin(origins= "*")
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Usuario getUsuarioById(@PathVariable Integer id) {
         return usuarioRepository.findById(id).orElse(null);
     }
     
-    @CrossOrigin(origins = "*")
-    @GetMapping("/login/")
-    public Usuario getUsuarioByEmail(@RequestParam String email, @RequestParam String password) {
-        return usuarioRepository.findByEmail(email);
-    }
-    
-    @CrossOrigin(origins = "*")
-    @GetMapping("/cliente/")
-    public List<Usuario> getUsuariosByProfile() {
-        return usuarioRepository.findByProfile("cliente");
-    }
-    
-    private String gerarSenhaAleatoria() {
-        SecureRandom random = new SecureRandom();
-        int senhaNumerica = random.nextInt(10000); 
-        return String.format("%04d", senhaNumerica); 
-    }
+    @CrossOrigin(origins= "*")
+    @GetMapping("/login")
+    public Usuario login(@RequestParam String email, @RequestParam String password) {
+        Usuario user = usuarioRepository.findByEmail(email);
 
-    private String gerarSenhaHash(String senha) {
-        try {
-            SecureRandom random = new SecureRandom();
-            byte[] salt = new byte[16];
-            random.nextBytes(salt);
-
-            byte[] senhaComSalt = concatBytes(senha.getBytes(), salt);
-
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(senhaComSalt);
-
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Erro ao gerar hash da senha", e);
+        if (user != null && user.getPassword().equals(password)) {
+            // Adicione logging para verificar o usuário retornado
+            System.out.println("Usuário encontrado: " + user.toString());
+            return user;
+        } else {
+            // Adicione logging para verificar se o usuário não foi encontrado ou se a senha está incorreta
+            System.out.println("Usuário não encontrado ou senha incorreta para o email: " + email);
+            return null;
         }
     }
-
-    private byte[] concatBytes(byte[] a, byte[] b) {
-        byte[] result = new byte[a.length + b.length];
-        System.arraycopy(a, 0, result, 0, a.length);
-        System.arraycopy(b, 0, result, a.length, b.length);
-        return result;
-    }
+   
 
     @CrossOrigin(origins= "*")
     @PostMapping
     public Usuario createUsuario(@RequestBody Usuario usuario) {
-        String senhaHash = gerarSenhaHash(usuario.getPassword());
-        usuario.setPassword(senhaHash);
-        
         Usuario savedUsuario = usuarioRepository.save(usuario);
         
         return savedUsuario;
@@ -96,7 +60,7 @@ public class UsuarioController {
             usuario.setName(usuarioData.getName());
             usuario.setEmail(usuarioData.getEmail());
             usuario.setPassword(usuarioData.getPassword());
-            usuario.setProfile(usuarioData.getProfile());
+            usuario.setTipo(usuarioData.getTipo());
 
             return usuarioRepository.save(usuario);
         }

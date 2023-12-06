@@ -22,14 +22,21 @@ public class Usuario {
     private String name;
 
     @Column(name = "email")
-    @JsonProperty("login")
     private String email;
 
     @Column(name = "senha")
     private String password;
 
     @Column(name = "tipo")
-    private String profile;
+    @JsonProperty("type")
+    private String tipo;
+    
+    @Column(name = "telefone")
+    @JsonProperty("cellphone")
+    private String telefone;
+    
+    @Column(name = "cpf")
+    private String cpf;
     
     public Integer getId() {
         return id;
@@ -47,12 +54,10 @@ public class Usuario {
         this.name = name;
     }
 
-    @JsonProperty("login")
     public String getEmail() {
         return email;
     }
 
-    @JsonProperty("login")
     public void setEmail(String email) {
         this.email = email;
     }
@@ -65,11 +70,27 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    public String getTelefone() {
+    	return telefone;
+    }
+    
+    public void setTelefone(String telefone) {
+    	this.telefone = telefone;
+    }
+    
+    public String getCpf() {
+    	return cpf;
+    }
+    
+    public void setCpf(String cpf) {
+    	this.cpf = cpf;
     }
 }

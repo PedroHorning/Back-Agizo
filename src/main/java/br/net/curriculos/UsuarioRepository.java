@@ -10,8 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	Usuario findByEmail(String email);
-	
-	@Query("SELECT u FROM Usuario u WHERE u.profile = :profile")
-    List<Usuario> findByProfile(@Param("profile") String profile);
 }
 

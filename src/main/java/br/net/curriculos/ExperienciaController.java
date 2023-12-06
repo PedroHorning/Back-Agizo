@@ -16,24 +16,32 @@ public class ExperienciaController {
     public List<Experiencia> getAllExperiencias() {
         return experienciaRepository.findAll();
     }
+    
+    @CrossOrigin(origins= "*")
+    @GetMapping("/{idusuario}")
+    public List<Experiencia> getExperienciaByIdUsuario(@PathVariable Integer idusuario) {
+        return experienciaRepository.findByidusuario(idusuario);
+    }
 
     @CrossOrigin(origins= "*")
     @PostMapping
-    public Experiencia createExperiencia(@RequestBody Experiencia experiencia) { 
+    public Experiencia createExperiencia(@RequestBody Experiencia experiencia) {
+    	System.out.println("Data inicial" + experiencia.getDataInicio());
     	Experiencia savedExperiencia = experienciaRepository.save(experiencia);
         
         return savedExperiencia;
     }
 
-    @CrossOrigin(origins= "*")
     @PutMapping("/{id}")
     public Experiencia updateExperiencia(@PathVariable Integer id, @RequestBody Experiencia experienciaData) {
-    	Experiencia experiencia = experienciaRepository.findById(id).orElse(null);
+        Experiencia experiencia = experienciaRepository.findById(id).orElse(null);
         if (experiencia != null) {
-        	experiencia.setCargo(experienciaData.getCargo());
-        	experiencia.setData_inicio(experienciaData.getData_inicio());
-        	experiencia.setData_fim(experienciaData.getData_fim());
-        	experiencia.setDescricao(experienciaData.getDescricao());
+            experiencia.setCargo(experienciaData.getCargo());
+            experiencia.setDataInicio(experienciaData.getDataInicio());
+            experiencia.setDataFim(experienciaData.getDataFim());
+            experiencia.setDescricao(experienciaData.getDescricao());
+            experiencia.setLocal(experienciaData.getLocal());
+            experiencia.setIdusuario(experienciaData.getIdusuario());
 
             return experienciaRepository.save(experiencia);
         }
